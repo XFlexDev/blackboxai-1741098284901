@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post - Modern Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen font-sans transition-colors duration-300">
+    <!-- Header -->
+    <header class="fixed w-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-lg z-50">
+        <div class="container mx-auto px-4 py-4">
+            <nav class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-gray-800 dark:text-white">
+                    <a href="index.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300">
+                        <i class="fas fa-pen-fancy mr-2"></i>Modern Blog
+                    </a>
+                </h1>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 pt-24 pb-12">
+        <article class="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden page-transition">
+            <div id="postContent" class="p-8">
+                <!-- Post content will be inserted here by JavaScript -->
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-800 shadow-lg mt-auto">
+        <div class="container mx-auto px-4 py-6">
+            <p class="text-center text-gray-600 dark:text-gray-400">
+                © 2024 Modern Blog. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Get post ID from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('id');
+
+        // Load and display the post
+        const loadPost = () => {
+            try {
+                const posts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+                const post = posts.find(p => p.id === Number(postId));
+                
+                if (!post) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                // Update page title
+                document.title = `${post.title} - Modern Blog`;
+
+                // Format date
+                const date = new Date(post.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+
+                // Render post content
+                const postContent = document.getElementById('postContent');
+                postContent.innerHTML = `
+                    ${post.imageUrl ? `
+                        <div class="relative h-96 -mx-8 -mt-8 mb-8">
+                            <img src="${post.imageUrl}" alt="${post.title}" class="w-full h-full object-cover">
+                        </div>
+                    ` : ''}
+                    <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">${post.title}</h1>
+                    <div class="flex items-center text-gray-600 dark:text-gray-400 mb-8">
+                        <i class="far fa-calendar-alt mr-2"></i>
+                        <span>${date}</span>
+                    </div>
+                    <div class="prose dark:prose-invert max-w-none">
+                        ${post.content}
+                    </div>
+                `;
+
+            } catch (error) {
+                console.error('Error loading blog post:', error);
+                window.location.href = 'index.html';
+            }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', loadPost);
+    </script>
+</body>
+</html>
