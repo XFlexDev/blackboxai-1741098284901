@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen font-sans transition-colors duration-300">
+    <!-- Header -->
+    <header class="fixed w-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-lg z-50">
+        <div class="container mx-auto px-4 py-4">
+            <nav class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-gray-800 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300">
+                    <i class="fas fa-pen-fancy mr-2"></i>Modern Blog
+                </h1>
+                <div class="flex items-center space-x-4">
+                    <button id="searchBtn" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Search Modal -->
+    <div id="searchModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-2xl mx-4 transform transition-all duration-300 scale-90 opacity-0" id="searchContent">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-gray-800 dark:text-white">Search Posts</h3>
+                <button id="closeSearch" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <input type="text" id="searchInput" class="w-full px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white border-2 border-transparent focus:border-indigo-500 focus:outline-none transition-all duration-300" placeholder="Search posts...">
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 pt-24 pb-12">
+        <!-- Featured Post -->
+        <section class="mb-12 opacity-0 transform translate-y-4 transition-all duration-500" id="featuredPost">
+            <!-- Featured post will be inserted here by JavaScript -->
+        </section>
+
+        <!-- Blog Posts Grid -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="blogPosts">
+            <!-- Blog posts will be inserted here by JavaScript -->
+        </section>
+
+        <!-- No Posts Message -->
+        <div id="noPostsMessage" class="hidden text-center py-12">
+            <i class="fas fa-newspaper text-4xl text-gray-400 dark:text-gray-600 mb-4"></i>
+            <p class="text-gray-600 dark:text-gray-400 text-lg">No blog posts yet.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-800 shadow-lg mt-auto">
+        <div class="container mx-auto px-4 py-6">
+            <p class="text-center text-gray-600 dark:text-gray-400">
+                © 2024 Modern Blog. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
